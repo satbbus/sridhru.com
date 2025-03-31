@@ -16,6 +16,9 @@
             background-color: #ff6600;
             overflow: hidden;
             padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
         }
         .navbar a {
             text-decoration: none;
@@ -27,6 +30,7 @@
         .dropdown {
             display: inline-block;
             position: relative;
+            margin: 5px;
         }
         .dropdown-content {
             display: none;
@@ -53,11 +57,107 @@
         }
         .banner {
             margin-top: 20px;
-            width: 80%;
+            width: 90%;
             max-width: 600px;
             height: auto;
             border-radius: 10px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Media Queries for Responsiveness */
+        @media screen and (max-width: 768px) {
+            .navbar a {
+                font-size: 16px;
+                padding: 10px 15px;
+            }
+            .dropdown-content {
+                min-width: 120px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .navbar {
+                flex-direction: column;
+                align-items: center;
+            }
+            .dropdown {
+                width: 100%;
+                text-align: center;
+            }
+            .dropdown-content {
+                position: static;
+                display: block;
+            }
+            .dropdown-content a {
+                padding: 10px;
+            }
+        }
+
+        .gallery {
+            text-align: center;
+            padding: 20px;
+        }
+        .photo-grid {
+            display: block;
+            text-align: center;
+        }
+        .photo-grid img {
+            width: 50vw;   /* 50% of the viewport width */
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        .photo-grid img:hover {
+            transform: scale(1.05);
+        }
+
+        .tabs {
+            overflow: hidden;
+            background-color: #f1f1f1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .tablink {
+            background-color: #ddd;
+            color: black;
+            padding: 14px 20px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+        .tablink:hover {
+            background-color: #ccc;
+        }
+
+        .tabcontent {
+            display: none;
+            padding: 20px;
+            animation: fadeEffect 0.5s;
+        }
+
+        .video-grid {
+            display: block;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .video-grid iframe {
+            width: 75vw;  /* 75% of the viewport width */
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+        }
+
+        @keyframes fadeEffect {
+            from {opacity: 0;}
+            to {opacity: 1;}
         }
     </style>
 </head>
@@ -95,10 +195,101 @@
 
     <!-- Home Page Content -->
     <div class="content">
-        <h1>Welcome to the Birthday Memories!</h1>
-        <p>Celebrate the wonderful journey of Sridhruthi & Sridhruva through the years.</p>
-        <img src="photos/banner.jpg" alt="Birthday Banner" class="banner">
+        <h1>Sridhruthi, Out Little Princess!</h1>
+        <p>11th Birthday Invite.</p>
+        <img src="photos/invite11.png" alt="Birthday Banner" class="banner">
     </div>
+
+    <div class="tabs">
+        <button class="tablink" onclick="openTab(event, 'Photos')" id="defaultTab">Photos</button>
+        <button class="tablink" onclick="openTab(event, 'Videos')">Videos</button>
+    </div>
+
+    <div id="Photos" class="tabcontent">
+        <div class="gallery">
+            <h2>Last 10 Birthdays</h2>
+            <div id="photo-grid" class="photo-grid"></div>
+        </div>
+    </div>
+
+    <div id="Videos" class="tabcontent" style="display:none;">
+        <h2>Some Lovely videos through the years</h2>
+        <div class="video-grid">
+            <iframe 
+            src="https://www.youtube.com/embed/0jj7Qeiex-U?si=nTUbREUIg5oWSP7s" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+        </iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID2" frameborder="0" allowfullscreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID3" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const gallery = document.getElementById('photo-grid');
+
+            // Predefined list of photo filenames with titles and descriptions
+            const photos = [
+                { name: 'birthday-1.jpg', title: '1st Birthday', text: 'A wonderful celebration with family and friends.' },
+                { name: 'birthday-2.jpg', title: '2nd Birthday', text: 'Fun-filled day with lots of laughter.' },
+                { name: 'birthday-3.jpg', title: '3rd Birthday', text: 'A memorable party with games and cake.' },
+                { name: 'birthday-4.jpg', title: '4th Birthday', text: 'A joyful day with colorful decorations.' },
+                { name: 'birthday-5.jpg', title: '5th Birthday', text: 'An amazing birthday with a magic show.' },
+                { name: 'birthday-6.jpg', title: '6th Birthday', text: 'A fantastic day with pony rides and fun.' },
+                { name: 'birthday-7.jpg', title: '7th Birthday', text: 'A superhero-themed party full of adventure.' },
+                { name: 'birthday-8.jpg', title: '8th Birthday', text: 'An unforgettable birthday with lots of gifts.' },
+                { name: 'birthday-9.jpg', title: '9th Birthday', text: 'A day of fun, games, and cake.' },
+                { name: 'birthday-10.jpg', title: '10th Birthday', text: 'A milestone birthday with a big celebration.' },
+                { name: 'birthday-10-1.jpg', title: '', text: '' }
+            ];
+
+            photos.forEach((photo) => {
+                const container = document.createElement('div');
+                container.style.marginBottom = '30px';
+                container.style.textAlign = 'center';
+
+                const title = document.createElement('h3');
+                title.textContent = photo.title;
+
+                const text = document.createElement('p');
+                text.textContent = photo.text;
+
+                const imgElement = document.createElement('img');
+                imgElement.src = `photos/${photo.name}`;
+                imgElement.alt = photo.title;
+                imgElement.onerror = () => imgElement.style.display = 'none';  // Hide broken images
+
+                container.appendChild(title);
+                container.appendChild(text);
+                container.appendChild(imgElement);
+
+                gallery.appendChild(container);
+            });
+        });
+
+        function openTab(evt, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        document.getElementById("defaultTab").click();
+    </script>
+
+    <audio autoplay loop>
+        <source src="music/Chinnari.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
 </body>
 </html>
