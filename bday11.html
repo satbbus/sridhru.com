@@ -69,34 +69,28 @@ body::before {
 </head>
 <body>
     <h1>11th Birthday Photo Gallery</h1>
-    <div class="gallery" id="gallery"></div>
-
-    <script>
-        const gallery = document.getElementById("gallery");
-
-        async function loadImages() {
-            try {
-                const response = await fetch('bday11/images.json');
-                const images = await response.json();
-
-                if (images.length === 0) {
-                    gallery.style.display = 'none';
-                    return;
-                }
-
-                images.forEach((filename, index) => {
-                    const img = document.createElement("img");
-                    img.src = `bday11/${filename}`;
-                    img.alt = `Photo ${index + 1}`;
-                    gallery.appendChild(img);
-                });
-            } catch (error) {
-                console.error("Failed to load gallery images:", error);
-                gallery.style.display = 'none';
-            }
-        }
-
-        loadImages();
-    </script>
+    <div class="gallery" id="gallery">
+        <img src="bday11/_DHR8568.jpeg" alt="_DHR8568.jpeg">
+        <img src="bday11/_DHR8569.jpeg" alt="_DHR8569.jpeg">
+        <img src="bday11/_DHR8570.jpeg" alt="_DHR8570.jpeg">
+        <img src="bday11/_DHR8571.jpeg" alt="_DHR8571.jpeg">
+        <img src="bday11/_DHR8572.jpeg" alt="_DHR8572.jpeg">
+        <img src="bday11/_DHR8573.jpeg" alt="_DHR8573.jpeg">
+        <img src="bday11/_DHR8574.jpeg" alt="_DHR8574.jpeg">
+        <img src="bday11/_DHR8575.jpeg" alt="_DHR8575.jpeg">
+        <img src="bday11/_DHR8576.jpeg" alt="_DHR8576.jpeg">
+        <img src="bday11/_DHR8577.jpeg" alt="_DHR8577.jpeg">
+        <img src="bday11/_DHR8578.jpeg" alt="_DHR8578.jpeg">
+        <img src="bday11/_DHR8579.jpeg" alt="_DHR8579.jpeg">
+        <img src="bday11/_DHR8580.jpeg" alt="_DHR8580.jpeg">
+        <img src="bday11/_DHR8581.jpeg" alt="_DHR8581.jpeg">
+        <img src="bday11/_DHR8583.jpeg" alt="_DHR8583.jpeg">
+        <img src="bday11/_DHR8584.jpeg" alt="_DHR8584.jpeg">
+        <img src="bday11/_DHR8585.jpeg" alt="_DHR8585.jpeg">
+        <img src="bday11/_DHR8587.jpeg" alt="_DHR8587.jpeg">
+        <img src="bday11/_DHR8588.jpeg" alt="_DHR8588.jpeg">
+        <img src="bday11/_DHR8589.jpeg" alt="_DHR8589.jpeg">
+        <!-- Add more image tags here as needed -->
+    </div>
 </body>
 </html>
