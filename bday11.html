@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>11th Birthday Gallery</title>
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('photos/invite11.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.3; /* 50% transparency */
+    z-index: -1;
+}
+
+        h1 {
+            color: #ff6600;
+            margin-bottom: 40px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        @media screen and (max-width: 768px) {
+            .gallery {
+                width: 80%;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .gallery {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>11th Birthday Photo Gallery</h1>
+    <div class="gallery" id="gallery"></div>
+
+    <script>
+        const gallery = document.getElementById("gallery");
+
+        async function loadImages() {
+            try {
+                const response = await fetch('bday11/images.json');
+                const images = await response.json();
+
+                if (images.length === 0) {
+                    gallery.style.display = 'none';
+                    return;
+                }
+
+                images.forEach((filename, index) => {
+                    const img = document.createElement("img");
+                    img.src = `bday11/${filename}`;
+                    img.alt = `Photo ${index + 1}`;
+                    gallery.appendChild(img);
+                });
+            } catch (error) {
+                console.error("Failed to load gallery images:", error);
+                gallery.style.display = 'none';
+            }
+        }
+
+        loadImages();
+    </script>
+</body>
+</html>
