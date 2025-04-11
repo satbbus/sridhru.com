@@ -76,7 +76,7 @@ body::before {
 
         async function loadImages() {
             try {
-                const response = await fetch('bday11/images.json');
+                const response = await fetch('../bday11/images.json');
                 const images = await response.json();
 
                 if (images.length === 0) {
