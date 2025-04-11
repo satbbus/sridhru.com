@@ -76,7 +76,7 @@ body::before {
 
         async function loadImages() {
             try {
-                const response = await fetch('/sridhru.com/bday11/images.json');
+                const response = await fetch('bday11/images.json');
                 const images = await response.json();
 
                 if (images.length === 0) {
@@ -86,7 +86,7 @@ body::before {
 
                 images.forEach((filename, index) => {
                     const img = document.createElement("img");
-                    img.src = `/sridhru.com/bday11/${filename}`;
+                    img.src = `bday11/${filename}`;
                     img.alt = `Photo ${index + 1}`;
                     gallery.appendChild(img);
                 });
