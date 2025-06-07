@@ -1,415 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Memories</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f8f8;
-        }
-        .navbar {
-            background-color: #ff6600;
-            overflow: hidden;
-            padding: 10px 0;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .navbar a {
-            text-decoration: none;
-            color: white;
-            padding: 14px 20px;
-            display: inline-block;
-            font-size: 18px;
-        }
-        .dropdown {
-            display: inline-block;
-            position: relative;
-            margin: 5px;
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: white;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            display: block;
-            text-decoration: none;
-        }
-        .dropdown-content a:hover {
-            background-color: #ddd;
-        }
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-        .content {
-            padding: 20px;
-        }
-        .banner {
-            margin-top: 20px;
-            width: 90%;
-            max-width: 600px;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Media Queries for Responsiveness */
-        @media screen and (max-width: 768px) {
-            .navbar a {
-                font-size: 16px;
-                padding: 10px 15px;
-            }
-            .dropdown-content {
-                min-width: 120px;
-            }
-        }
-
-        @media screen and (max-width: 480px) {
-            .navbar {
-                flex-direction: column;
-                align-items: center;
-            }
-            .dropdown {
-                width: 100%;
-                text-align: center;
-            }
-            .dropdown-content {
-                position: static;
-                display: block;
-            }
-            .dropdown-content a {
-                padding: 10px;
-            }
-        }
-
-        .gallery {
-            text-align: center;
-            padding: 20px;
-        }
-        .photo-grid {
-            display: block;
-            text-align: center;
-        }
-        .photo-grid img {
-            width: 50vw;   /* 50% of the viewport width */
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s;
-        }
-        .photo-grid img:hover {
-            transform: scale(1.05);
-        }
-
-        .tabs {
-            overflow: hidden;
-            background-color: #f1f1f1;
-            display: flex;
-            justify-content: center;
-        }
-
-        .tablink {
-            background-color: #ddd;
-            color: black;
-            padding: 14px 20px;
-            border: none;
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 17px;
-        }
-
-        .tablink:hover {
-            background-color: #ccc;
-        }
-
-        .tabcontent {
-            display: none;
-            padding: 20px;
-            animation: fadeEffect 0.5s;
-        }
-
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            justify-content: center;
-            align-items: center;
-            margin: 20px 0;
-        }
-
-        .video-grid iframe {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 16 / 9;
-        }
-
-        @keyframes fadeEffect {
-            from {opacity: 0;}
-            to {opacity: 1;}
-        }
-
-        @media screen and (max-width: 1024px) {
-            .video-grid {
-                grid-template-columns: repeat(2, 1fr);  /* 2 videos per row */
-            }
-        }
-
-        @media screen and (max-width: 768px) {
-            .video-grid {
-                grid-template-columns: 1fr;  /* 1 video per row */
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f3f1;
+      text-align: center;
+      padding: 50px 20px;
+    }
+    .btn {
+      background-color: #ff6f61;
+      border: none;
+      color: white;
+      padding: 15px 30px;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-top: 30px;
+      display: inline-block;
+    }
+    .btn:hover {
+      background-color: #ff3e2e;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    iframe {
+      margin-top: 20px;
+      border: none;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 560px;
+      height: 315px;
+    }
+  </style>
 </head>
 <body>
-    <div class="navbar">
-        <a href="index.html">Home</a>
-    </div>
 
-    <!-- Home Page Content -->
-    <div class="content">
-        <h1>Sridhruthi, Our Little Princess!</h1>
-        <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 40px; margin-top: 30px;">
-            <img src="photos/invite11.png" alt="Birthday Invite" class="banner" style="max-width: 300px;">
-            <div>
-                <a href="bday11.html" style="font-size: 20px; background-color: #ff6600; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; display: inline-block;">
-                    View 11th Birthday Gallery →
-                </a>
-            </div>
-        </div>
-    </div>
+  <h1>Welcome to Our Special Moments 🎉</h1>
+  <p>Click below to view Jaanvi's Birthday Celebration!</p>
 
-    <div class="tabs">
-        <button class="tablink" onclick="openTab(event, 'Photos')" id="defaultTab">Photos</button>
-        <button class="tablink" onclick="openTab(event, 'Videos')">Videos</button>
-    </div>
+  <a class="btn" href="birthday.html">Go to Birthday Page</a>
 
-    <div id="Photos" class="tabcontent">
-        <div class="gallery">
-            <h2>Last 10 Birthdays</h2>
-            <div id="photo-grid" class="photo-grid"></div>
-        </div>
-    </div>
+  <hr style="margin: 50px auto; width: 80%; border: 1px solid #ddd;">
 
-    <div id="Videos" class="tabcontent" style="display:none;">
-        <h2>Some Lovely videos through the years</h2>
-        <div class="video-grid">
-            <iframe 
-            src="https://www.youtube.com/embed/0jj7Qeiex-U?si=nTUbREUIg5oWSP7s" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/WrXMp6gClXU?si=RFCbfwVcUKWV1YgV" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/PCaqVbxloiE?si=8JWrdz386dOk5bmq" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/pyK3IKjsNtY?si=HeKIoI4Hg8-1adYW" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/LPzpQZoSACA?si=n-oiXD2Hats2WBBr" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/IRrtyO_lMOA?si=AfijrNSKjk4mka-I" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/zp1QtjZ-WbM?si=HGCFBS3vrVEFa7YW" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/eA947ArzUb4?si=_AuiLB0Ggq82uOb6" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/Xlbt2BaYfn4?si=9-7n_EX_55Xw63JX" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/ryibU1G9xpE?si=dEClf6znt0doptTE" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/oXMg5vOwLis?si=2vio6fzTMJtx5jx1" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/6ELaZogGsTg?si=mq3dEFy1JSOYC3ME" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/pyK3IKjsNtY?si=MqEnzh0M29fP3Ee3" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-        src="https://www.youtube.com/embed/6JHCrvxJy3M?si=DmphkJA-bWyWdx8c" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-        allowfullscreen>
-    </iframe>
-    <iframe 
-    src="https://www.youtube.com/embed/pyK3IKjsNtY?si=MqEnzh0M29fP3Ee3" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  <h2>Sridhruthi's Piano Performance</h2>
+  <iframe 
+    src="https://www.youtube.com/embed/EFD2Ffz22sA" 
+    title="Sridhruthi's Piano Performance" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
     allowfullscreen>
-</iframe>
-<iframe 
-src="https://www.youtube.com/embed/SIeQQzcaXKo?si=ljZKyeup8wY7Gcnf" 
-frameborder="0" 
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-allowfullscreen>
-</iframe>
-<iframe 
-src="https://www.youtube.com/embed/frrAcmPAxxI?si=IOd1z0DU0-uXUkv_" 
-frameborder="0" 
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-allowfullscreen>
-</iframe>
-<iframe 
-src="https://www.youtube.com/embed/hWYhZck-IgA?si=07zZqyuGu_uMR_iE" 
-frameborder="0" 
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-allowfullscreen>
-</iframe>
-<iframe 
-src="https://www.youtube.com/embed/n5cBw0ck0a4?si=p6aT5MSQuA2zreJf" 
-frameborder="0" 
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-allowfullscreen>
-</iframe>
-<iframe 
-src="https://www.youtube.com/embed/u-ExUaICXLU?si=NstHM9Xf7gEUTxm_" 
-frameborder="0" 
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-allowfullscreen>
-</iframe>
-<iframe 
-src="https://www.youtube.com/embed/AypfMxb6vwU?si=wbIDEVSveeSDNXOx" 
-frameborder="0" 
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-allowfullscreen>
-</iframe>
-<iframe 
-src="https://www.youtube.com/embed/IbQx7Y8_M2s?si=ETZ92aAJpAsnBKDk" 
-frameborder="0" 
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-allowfullscreen>
-</iframe>
-
-
-
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const gallery = document.getElementById('photo-grid');
-
-            // Predefined list of photo filenames with titles and descriptions
-            const photos = [
-                { name: 'birthday-1.jpg', title: '1st Birthday', text: 'A wonderful celebration with family and friends.' },
-                { name: 'birthday-2.jpg', title: '2nd Birthday', text: 'Fun-filled day with lots of laughter.' },
-                { name: 'birthday-3.jpg', title: '3rd Birthday', text: 'A memorable party with games and cake.' },
-                { name: 'birthday-4.jpg', title: '4th Birthday', text: 'A joyful day with colorful decorations.' },
-                { name: 'birthday-5.jpg', title: '5th Birthday', text: 'An amazing birthday with a magic show.' },
-                { name: 'birthday-6.jpg', title: '6th Birthday', text: 'A fantastic day with pony rides and fun.' },
-                { name: 'birthday-7.jpg', title: '7th Birthday', text: 'A superhero-themed party full of adventure.' },
-                { name: 'birthday-8.jpg', title: '8th Birthday', text: 'An unforgettable birthday with lots of gifts.' },
-                { name: 'birthday-9.jpg', title: '9th Birthday', text: 'A day of fun, games, and cake.' },
-                { name: 'birthday-10.jpg', title: '10th Birthday', text: 'A milestone birthday with a big celebration.' },
-                { name: 'birthday-10-1.jpg', title: '', text: '' }
-            ];
-
-            photos.forEach((photo) => {
-                const container = document.createElement('div');
-                container.style.marginBottom = '30px';
-                container.style.textAlign = 'center';
-
-                const title = document.createElement('h3');
-                title.textContent = photo.title;
-
-                const text = document.createElement('p');
-                text.textContent = photo.text;
-
-                const imgElement = document.createElement('img');
-                imgElement.src = `photos/${photo.name}`;
-                imgElement.alt = photo.title;
-                imgElement.onerror = () => imgElement.style.display = 'none';  // Hide broken images
-
-                container.appendChild(title);
-                container.appendChild(text);
-                container.appendChild(imgElement);
-
-                gallery.appendChild(container);
-            });
-        });
-
-        function openTab(evt, tabName) {
-            let i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablink");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
-
-        document.getElementById("defaultTab").click();
-    </script>
-
-    <audio autoplay loop>
-        <source src="music/Chinnari.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+  </iframe>
 
 </body>
 </html>
