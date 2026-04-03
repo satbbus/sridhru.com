@@ -2,15 +2,237 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Welcome</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Our Special Moments</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f9f3f1;
+      font-family: 'Cormorant Garamond', serif;
+      background: linear-gradient(to bottom, #0a0a0a 0%, #0a0a0a 50%, #f9f3f1 50%);
       text-align: center;
+      padding: 20px;
+    }
+
+    /* ── BIRTHDAY INVITE SECTION ── */
+    .invite-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      background: #0a0a0a;
+    }
+
+    .card {
+      background: #000;
+      border: 2px solid #e8a0b4;
+      max-width: 460px;
+      width: 100%;
+      padding: 3rem 2.5rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 0 80px rgba(232,160,180,0.15),
+        0 0 160px rgba(232,160,180,0.06),
+        inset 0 0 80px rgba(232,160,180,0.03);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 0.5px solid rgba(232,160,180,0.2);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ── Butterflies ── */
+    .butterfly {
+      position: absolute;
+      opacity: 0;
+      animation: fadeIn 0.6s forwards, flutter 3.8s ease-in-out infinite;
+    }
+
+    @keyframes fadeIn { to { opacity: 1; } }
+    @keyframes flutter {
+      0%,100% { transform: rotate(-10deg) scale(1); }
+      50%      { transform: rotate(10deg)  scale(1.1); }
+    }
+
+    .b1  { top:12px;  left:18px;   width:48px; animation-delay:0s,   0.2s; animation-duration:0.6s,3.2s; }
+    .b2  { top:52px;  left:68px;   width:34px; animation-delay:0.3s, 0.4s; animation-duration:0.6s,3.8s; }
+    .b3  { top:18px;  right:22px;  width:30px; animation-delay:0.5s, 0.5s; animation-duration:0.6s,4.1s; }
+    .b4  { top:64px;  right:58px;  width:40px; animation-delay:0.7s, 0.3s; animation-duration:0.6s,3.5s; }
+    .b5  { top:6px;   left:46%;    width:26px; animation-delay:0.9s, 0.4s; animation-duration:0.6s,3.9s; }
+    .b6  { bottom:44px; left:14px; width:50px; animation-delay:0.2s, 0.5s; animation-duration:0.6s,3.4s; }
+    .b7  { bottom:80px; left:62px; width:32px; animation-delay:0.6s, 0.3s; animation-duration:0.6s,4.3s; }
+    .b8  { bottom:22px; right:24px;width:38px; animation-delay:1.0s, 0.4s; animation-duration:0.6s,3.7s; }
+    .b9  { bottom:60px; right:68px;width:28px; animation-delay:0.4s, 0.6s; animation-duration:0.6s,4.0s; }
+    .b10 { top:38%;  left:5px;    width:24px; animation-delay:1.2s, 0.4s; animation-duration:0.6s,3.6s; }
+    .b11 { top:42%;  right:4px;   width:22px; animation-delay:0.8s, 0.5s; animation-duration:0.6s,4.2s; }
+
+    /* ── Sparkles ── */
+    .sparkle {
+      position: absolute;
+      border-radius: 50%;
+      background: #e8a0b4;
+      animation: sparkle 2.4s ease-in-out infinite;
+    }
+    @keyframes sparkle {
+      0%,100% { opacity:0.12; transform:scale(1); }
+      50%      { opacity:0.55; transform:scale(1.8); }
+    }
+    .sp1 { width:3px;height:3px;top:38%;left:7%;   animation-delay:0s;   }
+    .sp2 { width:2px;height:2px;top:58%;right:9%;  animation-delay:0.6s; }
+    .sp3 { width:3px;height:3px;top:28%;right:7%;  animation-delay:1.2s; }
+    .sp4 { width:2px;height:2px;top:72%;left:11%;  animation-delay:0.4s; }
+    .sp5 { width:2px;height:2px;top:82%;right:14%; animation-delay:1.0s; }
+    .sp6 { width:3px;height:3px;top:18%;left:30%;  animation-delay:0.8s; }
+
+    /* ── Content ── */
+    .content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      margin-top: 70px;
+      margin-bottom: 60px;
+    }
+
+    .tag {
+      font-size: 11px;
+      letter-spacing: 0.38em;
+      color: #e8a0b4;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .logo-box {
+      display: inline-block;
+      border: 2px solid #e8a0b4;
+      padding: 7px 24px;
+      margin-bottom: 1.6rem;
+      box-shadow: 0 0 20px rgba(232,160,180,0.2);
+    }
+
+    .logo-text {
+      font-family: 'Cinzel Decorative', cursive;
+      font-size: 24px;
+      color: #e8a0b4;
+      letter-spacing: 0.06em;
+    }
+
+    .birthday-label {
+      font-size: 12px;
+      letter-spacing: 0.32em;
+      color: rgba(232,160,180,0.65);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .name {
+      font-family: 'Cinzel Decorative', cursive;
+      font-size: 30px;
+      color: #fff;
+      margin-bottom: 0.35rem;
+      line-height: 1.25;
+      text-shadow: 0 0 40px rgba(232,160,180,0.35);
+    }
+
+    .turning {
+      font-size: 15px;
+      letter-spacing: 0.2em;
+      color: #e8a0b4;
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+
+    .divider {
+      width: 70px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #e8a0b4, transparent);
+      margin: 0 auto 1.8rem;
+    }
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .detail-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .detail-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .detail-inner { text-align: left; }
+
+    .detail-label {
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      color: #e8a0b4;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .detail-value {
+      font-size: 15px;
+      color: #fff;
+      font-style: italic;
+      line-height: 1.4;
+    }
+
+    .dress-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(232,160,180,0.4);
+      padding: 6px 18px;
+      margin: 0.5rem 0 1.5rem;
+    }
+
+    .dress-badge span {
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      color: #e8a0b4;
+      text-transform: uppercase;
+    }
+
+    .footer {
+      font-size: 13px;
+      color: rgba(232,160,180,0.6);
+      letter-spacing: 0.14em;
+      font-style: italic;
+    }
+
+    /* ── OTHER CONTENT SECTION ── */
+    .other-content {
+      background: #f9f3f1;
       padding: 50px 20px;
     }
+
+    .other-content h2 {
+      color: #333;
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+
+    .other-content p {
+      color: #555;
+      font-family: Arial, sans-serif;
+    }
+
     .btn {
       background-color: #ff6f61;
       border: none;
@@ -22,13 +244,13 @@
       text-decoration: none;
       margin-top: 30px;
       display: inline-block;
+      font-family: Arial, sans-serif;
     }
+
     .btn:hover {
       background-color: #ff3e2e;
     }
-    h1, h2 {
-      color: #333;
-    }
+
     iframe {
       margin-top: 20px;
       border: none;
@@ -37,24 +259,228 @@
       max-width: 560px;
       height: 315px;
     }
+
+    hr {
+      margin: 50px auto;
+      width: 80%;
+      border: 1px solid #ddd;
+    }
+
+    /* print-friendly */
+    @media print {
+      body { background: #000; }
+      .butterfly { animation: none; opacity: 1; }
+      .sparkle   { animation: none; opacity: 0.4; }
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        padding: 2rem 1.5rem 1.5rem;
+      }
+      .name {
+        font-size: 24px;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <h1>Welcome to Our Special Moments 🎉</h1>
-  <p>Click below to view Sridhruthi's 11th Birthday Celebration!</p>
+  <!-- ── BIRTHDAY INVITE SECTION ── -->
+  <div class="invite-section">
+    <div class="card">
 
-  <a class="btn" href="birthday.html">Go to Birthday Page</a>
+      <!-- Sparkles -->
+      <div class="sparkle sp1"></div>
+      <div class="sparkle sp2"></div>
+      <div class="sparkle sp3"></div>
+      <div class="sparkle sp4"></div>
+      <div class="sparkle sp5"></div>
+      <div class="sparkle sp6"></div>
 
-  <hr style="margin: 50px auto; width: 80%; border: 1px solid #ddd;">
+      <!-- Butterfly SVG -->
+      <svg class="butterfly b1" viewBox="0 0 60 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 22 C18 4, 1 3, 4 20 C7 30, 20 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C18 4, 1 3, 4 20 C7 30, 20 28, 30 22Z" fill="white" opacity="0.18"/>
+        <path d="M30 22 C42 4, 59 3, 56 20 C53 30, 40 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C42 4, 59 3, 56 20 C53 30, 40 28, 30 22Z" fill="white" opacity="0.18"/>
+        <path d="M30 22 C23 28, 16 38, 21 41 C26 43, 29 34, 30 22Z" fill="#c0607c"/>
+        <path d="M30 22 C37 28, 44 38, 39 41 C34 43, 31 34, 30 22Z" fill="#c0607c"/>
+        <line x1="30" y1="20" x2="27" y2="11" stroke="#c0607c" stroke-width="1.2"/>
+        <line x1="30" y1="20" x2="33" y2="11" stroke="#c0607c" stroke-width="1.2"/>
+        <ellipse cx="30" cy="22" rx="2" ry="3" fill="#c0607c"/>
+      </svg>
 
-  <h2>Sridhruthi's Piano Performance at KultureKool</h2>
-  <iframe 
-    src="https://www.youtube.com/embed/EFD2Ffz22sA" 
-    title="Sridhruthi's Piano Performance" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-  </iframe>
+      <svg class="butterfly b2" viewBox="0 0 60 44" fill="none">
+        <path d="M30 22 C18 4, 1 3, 4 20 C7 30, 20 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C18 4, 1 3, 4 20 C7 30, 20 28, 30 22Z" fill="white" opacity="0.15"/>
+        <path d="M30 22 C42 4, 59 3, 56 20 C53 30, 40 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C23 28, 16 38, 21 41 C26 43, 29 34, 30 22Z" fill="#c0607c"/>
+        <path d="M30 22 C37 28, 44 38, 39 41 C34 43, 31 34, 30 22Z" fill="#c0607c"/>
+        <line x1="30" y1="20" x2="27" y2="11" stroke="#c0607c" stroke-width="1.2"/>
+        <line x1="30" y1="20" x2="33" y2="11" stroke="#c0607c" stroke-width="1.2"/>
+        <ellipse cx="30" cy="22" rx="2" ry="3" fill="#c0607c"/>
+      </svg>
+
+      <svg class="butterfly b3" viewBox="0 0 60 44" fill="none">
+        <path d="M30 22 C18 4, 1 3, 4 20 C7 30, 20 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C42 4, 59 3, 56 20 C53 30, 40 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C23 28, 16 38, 21 41 C26 43, 29 34, 30 22Z" fill="#c0607c"/>
+        <path d="M30 22 C37 28, 44 38, 39 41 C34 43, 31 34, 30 22Z" fill="#c0607c"/>
+        <ellipse cx="30" cy="22" rx="2" ry="3" fill="#c0607c"/>
+      </svg>
+
+      <svg class="butterfly b4" viewBox="0 0 60 44" fill="none">
+        <path d="M30 22 C18 4, 1 3, 4 20 C7 30, 20 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C18 4, 1 3, 4 20 C7 30, 20 28, 30 22Z" fill="white" opacity="0.12"/>
+        <path d="M30 22 C42 4, 59 3, 56 20 C53 30, 40 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C23 28, 16 38, 21 41 C26 43, 29 34, 30 22Z" fill="#c0607c"/>
+        <path d="M30 22 C37 28, 44 38, 39 41 C34 43, 31 34, 30 22Z" fill="#c0607c"/>
+        <line x1="30" y1="20" x2="27" y2="11" stroke="#c0607c" stroke-width="1.2"/>
+        <line x1="30" y1="20" x2="33" y2="11" stroke="#c0607c" stroke-width="1.2"/>
+        <ellipse cx="30" cy="22" rx="2" ry="3" fill="#c0607c"/>
+      </svg>
+
+      <svg class="butterfly b5" viewBox="0 0 60 44" fill="none">
+        <path d="M30 22 C18 4, 1 3, 4 20 C7 30, 20 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C42 4, 59 3, 56 20 C53 30, 40 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C23 28, 16 38, 21 41 C26 43, 29 34, 30 22Z" fill="#c0607c"/>
+        <path d="M30 22 C37 28, 44 38, 39 41 C34 43, 31 34, 30 22Z" fill="#c0607c"/>
+        <ellipse cx="30" cy="22" rx="2" ry="3" fill="#c0607c"/>
+      </svg>
+
+      <svg class="butterfly b6" viewBox="0 0 60 44" fill="none">
+        <path d="M30 22 C18 4, 1 3, 4 20 C7 30, 20 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C18 4, 1 3, 4 20 C7 30, 20 28, 30 22Z" fill="white" opacity="0.18"/>
+        <path d="M30 22 C42 4, 59 3, 56 20 C53 30, 40 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C42 4, 59 3, 56 20 C53 30, 40 28, 30 22Z" fill="white" opacity="0.18"/>
+        <path d="M30 22 C23 28, 16 38, 21 41 C26 43, 29 34, 30 22Z" fill="#c0607c"/>
+        <path d="M30 22 C37 28, 44 38, 39 41 C34 43, 31 34, 30 22Z" fill="#c0607c"/>
+        <line x1="30" y1="20" x2="27" y2="11" stroke="#c0607c" stroke-width="1.2"/>
+        <line x1="30" y1="20" x2="33" y2="11" stroke="#c0607c" stroke-width="1.2"/>
+        <ellipse cx="30" cy="22" rx="2" ry="3" fill="#c0607c"/>
+      </svg>
+
+      <svg class="butterfly b7" viewBox="0 0 60 44" fill="none">
+        <path d="M30 22 C18 4, 1 3, 4 20 C7 30, 20 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C42 4, 59 3, 56 20 C53 30, 40 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C23 28, 16 38, 21 41 C26 43, 29 34, 30 22Z" fill="#c0607c"/>
+        <path d="M30 22 C37 28, 44 38, 39 41 C34 43, 31 34, 30 22Z" fill="#c0607c"/>
+        <ellipse cx="30" cy="22" rx="2" ry="3" fill="#c0607c"/>
+      </svg>
+
+      <svg class="butterfly b8" viewBox="0 0 60 44" fill="none">
+        <path d="M30 22 C18 4, 1 3, 4 20 C7 30, 20 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C18 4, 1 3, 4 20 C7 30, 20 28, 30 22Z" fill="white" opacity="0.14"/>
+        <path d="M30 22 C42 4, 59 3, 56 20 C53 30, 40 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C23 28, 16 38, 21 41 C26 43, 29 34, 30 22Z" fill="#c0607c"/>
+        <path d="M30 22 C37 28, 44 38, 39 41 C34 43, 31 34, 30 22Z" fill="#c0607c"/>
+        <line x1="30" y1="20" x2="27" y2="11" stroke="#c0607c" stroke-width="1.2"/>
+        <line x1="30" y1="20" x2="33" y2="11" stroke="#c0607c" stroke-width="1.2"/>
+        <ellipse cx="30" cy="22" rx="2" ry="3" fill="#c0607c"/>
+      </svg>
+
+      <svg class="butterfly b9" viewBox="0 0 60 44" fill="none">
+        <path d="M30 22 C18 4, 1 3, 4 20 C7 30, 20 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C42 4, 59 3, 56 20 C53 30, 40 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C23 28, 16 38, 21 41 C26 43, 29 34, 30 22Z" fill="#c0607c"/>
+        <path d="M30 22 C37 28, 44 38, 39 41 C34 43, 31 34, 30 22Z" fill="#c0607c"/>
+        <ellipse cx="30" cy="22" rx="2" ry="3" fill="#c0607c"/>
+      </svg>
+
+      <svg class="butterfly b10" viewBox="0 0 60 44" fill="none">
+        <path d="M30 22 C18 4, 1 3, 4 20 C7 30, 20 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C42 4, 59 3, 56 20 C53 30, 40 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C23 28, 16 38, 21 41 C26 43, 29 34, 30 22Z" fill="#c0607c"/>
+        <path d="M30 22 C37 28, 44 38, 39 41 C34 43, 31 34, 30 22Z" fill="#c0607c"/>
+        <ellipse cx="30" cy="22" rx="2" ry="3" fill="#c0607c"/>
+      </svg>
+
+      <svg class="butterfly b11" viewBox="0 0 60 44" fill="none">
+        <path d="M30 22 C18 4, 1 3, 4 20 C7 30, 20 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C42 4, 59 3, 56 20 C53 30, 40 28, 30 22Z" fill="#e8a0b4"/>
+        <path d="M30 22 C23 28, 16 38, 21 41 C26 43, 29 34, 30 22Z" fill="#c0607c"/>
+        <path d="M30 22 C37 28, 44 38, 39 41 C34 43, 31 34, 30 22Z" fill="#c0607c"/>
+        <ellipse cx="30" cy="22" rx="2" ry="3" fill="#c0607c"/>
+      </svg>
+
+      <!-- Main Content -->
+      <div class="content">
+        <p class="tag">✦ &nbsp; You are invited &nbsp; ✦</p>
+
+        <div class="logo-box">
+          <span class="logo-text">BLACKPINK</span>
+        </div>
+
+        <p class="birthday-label">Birthday Celebration</p>
+        <h1 class="name">Sridhruthi</h1>
+        <p class="turning">Turning Twelve &nbsp;🎀</p>
+
+        <div class="divider"></div>
+
+        <div class="details">
+
+          <div class="detail-row">
+            <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="#e8a0b4" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <div class="detail-inner">
+              <div class="detail-label">Date</div>
+              <div class="detail-value">Saturday, April 5th, 2025</div>
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="#e8a0b4" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 15.5"/></svg>
+            <div class="detail-inner">
+              <div class="detail-label">Time</div>
+              <div class="detail-value">5:00 PM — 8:00 PM</div>
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="#e8a0b4" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            <div class="detail-inner">
+              <div class="detail-label">Venue</div>
+              <div class="detail-value">87 Reservoir Ave, Apt 1</div>
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="#e8a0b4" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 1.18 2 2 0 012.03 0h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.9a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.18-1.18a2 2 0 012.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0122 14.92v2z"/></svg>
+            <div class="detail-inner">
+              <div class="detail-label">RSVP — Mom</div>
+              <div class="detail-value">845 800 7586</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="dress-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e8a0b4" stroke-width="1.5"><path d="M12 2l3 7h-2v13H11V9H9l3-7z"/></svg>
+          <span>Dress Code &nbsp;·&nbsp; Black &amp; Pink</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <p class="footer">♡ &nbsp; Join us for an evening of fun &amp; magic &nbsp; ♡</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── OTHER CONTENT SECTION ── -->
+  <div class="other-content">
+    <h2>Sridhruthi's Piano Performance at KultureKool</h2>
+    <iframe 
+      src="https://www.youtube.com/embed/EFD2Ffz22sA" 
+      title="Sridhruthi's Piano Performance" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+    </iframe>
+
+    <hr>
+
+    <p>Click below to view Sridhruthi's 11th Birthday Celebration!</p>
+    <a class="btn" href="birthday.html">Go to Birthday Page</a>
+  </div>
 
 </body>
 </html>
