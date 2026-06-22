@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>11th Birthday Gallery</title>
+  <title>CHS Graduation Gallery</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #fdf7f2;
-      --ink: #2a1800;
-      --panel: #fffdf9;
-      --accent: #e55a00;
-      --accent-2: #b34400;
-      --muted: #6b4c30;
-      --ring: rgba(229, 90, 0, 0.35);
+      --bg: #f4f6fb;
+      --ink: #1b2230;
+      --panel: #ffffff;
+      --accent: #2f4fa7;
+      --accent-2: #1f7b74;
+      --muted: #5a6479;
+      --ring: rgba(47, 79, 167, 0.35);
     }
 
     * { box-sizing: border-box; }
@@ -25,16 +25,19 @@
       min-height: 100vh;
       font-family: 'Manrope', sans-serif;
       color: var(--ink);
-      background: var(--bg);
+      background:
+        radial-gradient(circle at 90% 8%, rgba(47, 79, 167, 0.2), transparent 36%),
+        radial-gradient(circle at 8% 88%, rgba(31, 123, 116, 0.2), transparent 34%),
+        linear-gradient(140deg, #f8f9fe, var(--bg));
       padding: 20px;
       position: relative;
     }
 
     body::before {
-      content: '';
+      content: "";
       position: fixed;
       inset: 0;
-      background: var(--page-bg-image, none) center/cover no-repeat;
+      background: var(--page-bg-image, none) center center / cover no-repeat;
       opacity: 0.12;
       pointer-events: none;
       z-index: 0;
@@ -51,11 +54,10 @@
     }
 
     .main {
-      background: rgba(255, 253, 249, 0.92);
+      background: var(--panel);
       border-radius: 18px;
       padding: 16px;
-      box-shadow: 0 18px 42px rgba(80, 30, 0, 0.13);
-      backdrop-filter: blur(4px);
+      box-shadow: 0 18px 42px rgba(13, 18, 28, 0.12);
     }
 
     .top-nav {
@@ -66,7 +68,7 @@
     }
 
     .chip {
-      border: 1px solid #f0cdb0;
+      border: 1px solid #d7def1;
       color: var(--ink);
       background: #fff;
       border-radius: 999px;
@@ -74,9 +76,11 @@
       text-decoration: none;
       font-size: 0.88rem;
       font-weight: 600;
+      cursor: pointer;
     }
 
-    .chip:hover, .chip:focus-visible {
+    .chip:hover,
+    .chip:focus-visible {
       border-color: var(--accent);
       outline: none;
       box-shadow: 0 0 0 3px var(--ring);
@@ -86,7 +90,6 @@
       margin: 8px 0 8px;
       font-family: 'Playfair Display', serif;
       font-size: clamp(1.6rem, 3.1vw, 2.4rem);
-      color: var(--accent-2);
     }
 
     .subtitle {
@@ -99,7 +102,7 @@
       position: relative;
       border-radius: 14px;
       overflow: hidden;
-      background: #1a0a00;
+      background: #101420;
       min-height: 420px;
       display: flex;
       align-items: center;
@@ -113,19 +116,12 @@
       display: block;
     }
 
-    .viewer-wrap video {
-      max-width: 100%;
-      max-height: 72vh;
-      object-fit: contain;
-      display: none;
-    }
-
     .arrow {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
       border: 0;
-      background: rgba(40, 15, 0, 0.72);
+      background: rgba(12, 19, 35, 0.72);
       color: #fff;
       width: 42px;
       height: 42px;
@@ -135,8 +131,9 @@
       font-weight: 700;
     }
 
-    .arrow:hover { background: rgba(40, 15, 0, 0.92); }
-    .arrow.left  { left: 10px; }
+    .arrow:hover { background: rgba(12, 19, 35, 0.92); }
+
+    .arrow.left { left: 10px; }
     .arrow.right { right: 10px; }
 
     .meta {
@@ -161,7 +158,7 @@
     }
 
     .btn {
-      border: 1px solid #f0cdb0;
+      border: 1px solid #d7def1;
       background: #fff;
       color: var(--ink);
       border-radius: 10px;
@@ -171,7 +168,8 @@
       cursor: pointer;
     }
 
-    .btn:hover, .btn:focus-visible {
+    .btn:hover,
+    .btn:focus-visible {
       border-color: var(--accent);
       outline: none;
       box-shadow: 0 0 0 3px var(--ring);
@@ -184,13 +182,13 @@
     }
 
     .side {
-      background: rgba(255, 253, 249, 0.92);
+      background: var(--panel);
       border-radius: 18px;
       padding: 14px;
-      box-shadow: 0 18px 42px rgba(80, 30, 0, 0.13);
-      backdrop-filter: blur(4px);
+      box-shadow: 0 18px 42px rgba(13, 18, 28, 0.12);
       display: flex;
       flex-direction: column;
+      min-height: 300px;
     }
 
     .side h2 {
@@ -212,23 +210,28 @@
       border-radius: 8px;
       overflow: hidden;
       padding: 0;
-      background: #f0cdb0;
+      background: #d7def1;
       cursor: pointer;
       aspect-ratio: 1 / 1;
-      position: relative;
     }
 
-    .thumb img, .thumb video {
+    .thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      pointer-events: none;
     }
 
     .thumb.active {
       border-color: var(--accent);
       box-shadow: 0 0 0 2px var(--ring);
+    }
+
+    .help {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.45;
     }
 
     .play-overlay {
@@ -239,27 +242,34 @@
       justify-content: center;
       font-size: 1.6rem;
       color: #fff;
-      background: rgba(0,0,0,0.38);
+      background: rgba(0, 0, 0, 0.38);
       pointer-events: none;
       border-radius: 6px;
     }
 
-    .help {
-      margin-top: 12px;
-      color: var(--muted);
-      font-size: 0.82rem;
-      line-height: 1.45;
+    .thumb.video-thumb {
+      position: relative;
     }
 
     @media (max-width: 980px) {
-      .shell { grid-template-columns: 1fr; }
-      .thumbs { grid-template-columns: repeat(6, 1fr); }
+      .shell {
+        grid-template-columns: 1fr;
+      }
+
+      .thumbs {
+        grid-template-columns: repeat(6, 1fr);
+      }
     }
 
     @media (max-width: 640px) {
       body { padding: 12px; }
-      .main, .side { border-radius: 14px; }
-      .thumbs { grid-template-columns: repeat(4, 1fr); }
+
+      .main,
+      .side { border-radius: 14px; }
+
+      .thumbs {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
   </style>
 </head>
@@ -269,25 +279,25 @@
       <nav class="top-nav" aria-label="Event navigation">
         <a class="chip" href="index.html">All People</a>
         <a class="chip" href="sridhruthi.html">Sridhruthi's Events</a>
-        <a class="chip" href="birthday.html">← Birthday Memories</a>
-        <a class="chip" href="chs-graduation.html">CHS Graduation →</a>
+        <a class="chip" href="bday11.html">← 11th Birthday</a>
+        <a class="chip" href="kulturekool-2026.html">KultureKool 2026 →</a>
       </nav>
 
-      <h1>11th Birthday Gallery</h1>
+      <h1>CHS Graduation</h1>
       <p class="subtitle">Full-screen viewer, thumbnail rail, slideshow mode, and keyboard navigation.</p>
 
       <div class="viewer-wrap">
-        <button class="arrow left"  id="prevBtn" type="button" aria-label="Previous item">&#8249;</button>
-        <img   id="mainImage" alt="11th Birthday photo">
-        <video id="mainVideo" preload="metadata" controls></video>
+        <button class="arrow left" id="prevBtn" type="button" aria-label="Previous image">&#8249;</button>
+        <img id="mainImage" alt="CHS Graduation photo">
+        <video id="mainVideo" preload="metadata" controls style="display:none; max-width:100%; max-height:72vh; object-fit:contain;"></video>
         <button class="arrow right" id="nextBtn" type="button" aria-label="Next item">&#8250;</button>
       </div>
 
       <div class="meta">
         <div class="counter" id="counter"></div>
         <div class="controls">
-          <button class="btn" id="playBtn"       type="button">Play Slideshow</button>
-          <button class="btn" id="shuffleBtn"    type="button">Shuffle</button>
+          <button class="btn" id="playBtn" type="button">Play Slideshow</button>
+          <button class="btn" id="shuffleBtn" type="button">Shuffle</button>
           <button class="btn" id="fullscreenBtn" type="button">Fullscreen</button>
         </div>
       </div>
@@ -296,38 +306,40 @@
     <aside class="side">
       <h2>Quick Jump Thumbnails</h2>
       <div class="thumbs" id="thumbs"></div>
-      <p class="help">Keyboard: Left/Right = navigate &nbsp;·&nbsp; Space = play/pause &nbsp;·&nbsp; F = fullscreen &nbsp;·&nbsp; Home/End = first/last</p>
+      <p class="help">Keyboard shortcuts: Left/Right = navigate, Space = play or pause, F = fullscreen, Home/End = first or last image.</p>
     </aside>
   </div>
 
   <script>
-    let items = [];
+    let items = []; // [{src, type: 'image'|'video'}]
 
-    const viewer      = document.getElementById('mainImage');
-    const mainVideo   = document.getElementById('mainVideo');
-    const counter     = document.getElementById('counter');
-    const thumbs      = document.getElementById('thumbs');
-    const playBtn     = document.getElementById('playBtn');
-    const shuffleBtn  = document.getElementById('shuffleBtn');
-    const fsBtn       = document.getElementById('fullscreenBtn');
-    const prevBtn     = document.getElementById('prevBtn');
-    const nextBtn     = document.getElementById('nextBtn');
+    const viewer    = document.getElementById('mainImage');
+    const mainVideo = document.getElementById('mainVideo');
+    const counter   = document.getElementById('counter');
+    const thumbs    = document.getElementById('thumbs');
+    const playBtn   = document.getElementById('playBtn');
+    const shuffleBtn    = document.getElementById('shuffleBtn');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
 
-    let index = 0, playing = false, timer = null;
+    let index = 0;
+    let playing = false;
+    let timer = null;
 
     function setGalleryBackground(imageSrc) {
       if (!imageSrc) return;
       document.body.style.setProperty('--page-bg-image', `url('${imageSrc}')`);
     }
 
-    // Load photos; videos optional (no videos.json for bday11 yet)
+    // Load photos and videos in parallel
     Promise.all([
-      fetch('bday11/images.json').then(r => r.ok ? r.json() : []).catch(() => []),
-      fetch('bday11/videos.json').then(r => r.ok ? r.json() : []).catch(() => [])
+      fetch('chs-graduation/images.json').then(r => r.ok ? r.json() : []).catch(() => []),
+      fetch('chs-graduation/videos.json').then(r => r.ok ? r.json() : []).catch(() => [])
     ]).then(([imgs, vids]) => {
       items = [
-        ...imgs.map(f => ({ src: 'bday11/' + f, type: 'image' })),
-        ...vids.map(f => ({ src: 'bday11/' + f, type: 'video' }))
+        ...imgs.map(f => ({ src: 'chs-graduation/' + f, type: 'image' })),
+        ...vids.map(f => ({ src: 'chs-graduation/' + f, type: 'video' }))
       ];
       setGalleryBackground(items.find(item => item.type === 'image')?.src);
       buildThumbs();
@@ -335,8 +347,10 @@
     });
 
     function render() {
-      if (!items.length) return;
+      if (items.length === 0) return;
       const item = items[index];
+
+      // Stop any playing video before switching
       mainVideo.pause();
 
       if (item.type === 'video') {
@@ -344,67 +358,93 @@
         mainVideo.style.display = 'block';
         mainVideo.src = item.src;
         mainVideo.load();
+        // Auto-pause slideshow when a video comes up
         if (playing) togglePlay();
         counter.textContent = `Video ${index + 1} of ${items.length}`;
       } else {
         mainVideo.style.display = 'none';
         viewer.style.display = 'block';
         viewer.src = item.src;
-        viewer.alt = `11th Birthday photo ${index + 1}`;
+        viewer.alt = `CHS Graduation photo ${index + 1}`;
         counter.textContent = `Photo ${index + 1} of ${items.length}`;
       }
 
-      document.querySelectorAll('.thumb').forEach((t, i) =>
-        t.classList.toggle('active', i === index));
+      document.querySelectorAll('.thumb').forEach((t, i) => {
+        t.classList.toggle('active', i === index);
+      });
     }
 
-    function next() { index = (index + 1) % items.length; render(); }
-    function prev() { index = (index - 1 + items.length) % items.length; render(); }
+    function next() {
+      index = (index + 1) % items.length;
+      render();
+    }
+
+    function prev() {
+      index = (index - 1 + items.length) % items.length;
+      render();
+    }
 
     function togglePlay() {
       playing = !playing;
       playBtn.classList.toggle('active', playing);
       playBtn.textContent = playing ? 'Pause Slideshow' : 'Play Slideshow';
-      playing ? (timer = setInterval(next, 2600)) : clearInterval(timer);
+      if (playing) {
+        timer = setInterval(next, 2600);
+      } else {
+        clearInterval(timer);
+      }
     }
 
     function shuffle() {
-      for (let i = items.length - 1; i > 0; i--) {
+      for (let i = items.length - 1; i > 0; i -= 1) {
         const j = Math.floor(Math.random() * (i + 1));
-        [items[i], items[j]] = [items[j], items[i]];
+        const temp = items[i];
+        items[i] = items[j];
+        items[j] = temp;
       }
-      index = 0; buildThumbs(); render();
+      index = 0;
+      buildThumbs();
+      render();
     }
 
     function toggleFullscreen() {
-      document.fullscreenElement
-        ? document.exitFullscreen()
-        : document.documentElement.requestFullscreen();
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
     }
 
     function buildThumbs() {
       thumbs.innerHTML = '';
-      items.forEach((item, i) => {
-        const btn = document.createElement('button');
-        btn.className = 'thumb' + (item.type === 'video' ? ' video-thumb' : '');
-        btn.type = 'button';
-        btn.setAttribute('aria-label', `Open ${item.type} ${i + 1}`);
+      items.forEach((item, thumbIndex) => {
+        const button = document.createElement('button');
+        button.className = item.type === 'video' ? 'thumb video-thumb' : 'thumb';
+        button.type = 'button';
+        button.setAttribute('aria-label', `Open ${item.type} ${thumbIndex + 1}`);
 
         if (item.type === 'video') {
           const vid = document.createElement('video');
-          vid.src = item.src; vid.preload = 'metadata';
+          vid.src = item.src;
+          vid.preload = 'metadata';
           vid.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;';
-          const ov = document.createElement('div');
-          ov.className = 'play-overlay'; ov.textContent = '▶';
-          btn.append(vid, ov);
+          const overlay = document.createElement('div');
+          overlay.className = 'play-overlay';
+          overlay.textContent = '\u25B6';
+          button.appendChild(vid);
+          button.appendChild(overlay);
         } else {
           const img = document.createElement('img');
-          img.src = item.src; img.alt = `Birthday thumbnail ${i + 1}`;
-          btn.appendChild(img);
+          img.src = item.src;
+          img.alt = `CHS Graduation thumbnail ${thumbIndex + 1}`;
+          button.appendChild(img);
         }
 
-        btn.addEventListener('click', () => { index = i; render(); });
-        thumbs.appendChild(btn);
+        button.addEventListener('click', () => {
+          index = thumbIndex;
+          render();
+        });
+        thumbs.appendChild(button);
       });
     }
 
@@ -412,19 +452,22 @@
     nextBtn.addEventListener('click', next);
     playBtn.addEventListener('click', togglePlay);
     shuffleBtn.addEventListener('click', shuffle);
-    fsBtn.addEventListener('click', toggleFullscreen);
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
 
-    document.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight') next();
-      if (e.key === 'ArrowLeft')  prev();
-      if (e.key === 'Home') { index = 0; render(); }
-      if (e.key === 'End')  { index = items.length - 1; render(); }
-      if (e.key === 'f' || e.key === 'F') toggleFullscreen();
-      if (e.code === 'Space') {
-        e.preventDefault();
-        items[index]?.type === 'video'
-          ? (mainVideo.paused ? mainVideo.play() : mainVideo.pause())
-          : togglePlay();
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight') next();
+      if (event.key === 'ArrowLeft') prev();
+      if (event.key === 'Home') { index = 0; render(); }
+      if (event.key === 'End')  { index = items.length - 1; render(); }
+      if (event.key === 'f' || event.key === 'F') toggleFullscreen();
+      if (event.code === 'Space') {
+        event.preventDefault();
+        // Space plays/pauses video if one is active, otherwise toggles slideshow
+        if (items[index] && items[index].type === 'video') {
+          mainVideo.paused ? mainVideo.play() : mainVideo.pause();
+        } else {
+          togglePlay();
+        }
       }
     });
   </script>

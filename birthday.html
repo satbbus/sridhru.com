@@ -1,415 +1,473 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Memories</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f8f8;
-        }
-        .navbar {
-            background-color: #ff6600;
-            overflow: hidden;
-            padding: 10px 0;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .navbar a {
-            text-decoration: none;
-            color: white;
-            padding: 14px 20px;
-            display: inline-block;
-            font-size: 18px;
-        }
-        .dropdown {
-            display: inline-block;
-            position: relative;
-            margin: 5px;
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: white;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            display: block;
-            text-decoration: none;
-        }
-        .dropdown-content a:hover {
-            background-color: #ddd;
-        }
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-        .content {
-            padding: 20px;
-        }
-        .banner {
-            margin-top: 20px;
-            width: 90%;
-            max-width: 600px;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Memories</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fff8f3;
+      --ink: #2a1200;
+      --panel: #fffdf9;
+      --accent: #e55a00;
+      --accent-2: #b34400;
+      --muted: #6b4c30;
+      --ring: rgba(229, 90, 0, 0.35);
+    }
 
-        /* Media Queries for Responsiveness */
-        @media screen and (max-width: 768px) {
-            .navbar a {
-                font-size: 16px;
-                padding: 10px 15px;
-            }
-            .dropdown-content {
-                min-width: 120px;
-            }
-        }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        @media screen and (max-width: 480px) {
-            .navbar {
-                flex-direction: column;
-                align-items: center;
-            }
-            .dropdown {
-                width: 100%;
-                text-align: center;
-            }
-            .dropdown-content {
-                position: static;
-                display: block;
-            }
-            .dropdown-content a {
-                padding: 10px;
-            }
-        }
+    body {
+      min-height: 100vh;
+      font-family: 'Manrope', sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(229, 90, 0, 0.15), transparent 35%),
+        radial-gradient(circle at 90% 85%, rgba(180, 60, 0, 0.12), transparent 35%),
+        linear-gradient(140deg, #fff5ee, var(--bg));
+      padding: 20px;
+      position: relative;
+    }
 
-        .gallery {
-            text-align: center;
-            padding: 20px;
-        }
-        .photo-grid {
-            display: block;
-            text-align: center;
-        }
-        .photo-grid img {
-            width: 50vw;   /* 50% of the viewport width */
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s;
-        }
-        .photo-grid img:hover {
-            transform: scale(1.05);
-        }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: var(--page-bg-image, none) center/cover no-repeat;
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        .tabs {
-            overflow: hidden;
-            background-color: #f1f1f1;
-            display: flex;
-            justify-content: center;
-        }
+    .shell {
+      max-width: 1140px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
 
-        .tablink {
-            background-color: #ddd;
-            color: black;
-            padding: 14px 20px;
-            border: none;
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 17px;
-        }
+    /* ── gallery shell: main viewer + thumbnail sidebar ── */
+    .gallery-shell {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
 
-        .tablink:hover {
-            background-color: #ccc;
-        }
+    .main {
+      background: rgba(255, 253, 249, 0.92);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 18px 42px rgba(80, 30, 0, 0.12);
+      backdrop-filter: blur(4px);
+    }
 
-        .tabcontent {
-            display: none;
-            padding: 20px;
-            animation: fadeEffect 0.5s;
-        }
+    .top-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
 
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            justify-content: center;
-            align-items: center;
-            margin: 20px 0;
-        }
+    .chip {
+      border: 1px solid #f0cdb0;
+      color: var(--ink);
+      background: #fff;
+      border-radius: 999px;
+      padding: 8px 14px;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
 
-        .video-grid iframe {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 16 / 9;
-        }
+    .chip:hover, .chip:focus-visible {
+      border-color: var(--accent);
+      outline: none;
+      box-shadow: 0 0 0 3px var(--ring);
+    }
 
-        @keyframes fadeEffect {
-            from {opacity: 0;}
-            to {opacity: 1;}
-        }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3.1vw, 2.4rem);
+      color: var(--accent-2);
+      margin: 8px 0 4px;
+    }
 
-        @media screen and (max-width: 1024px) {
-            .video-grid {
-                grid-template-columns: repeat(2, 1fr);  /* 2 videos per row */
-            }
-        }
+    .subtitle {
+      color: var(--muted);
+      margin: 0 0 14px;
+      line-height: 1.5;
+    }
 
-        @media screen and (max-width: 768px) {
-            .video-grid {
-                grid-template-columns: 1fr;  /* 1 video per row */
-            }
-        }
-    </style>
+    .viewer-wrap {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #1a0a00;
+      min-height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .viewer-wrap img {
+      max-width: 100%;
+      max-height: 72vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 10px 16px;
+      background: rgba(20, 8, 0, 0.62);
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 0;
+      background: rgba(40, 15, 0, 0.72);
+      color: #fff;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .arrow:hover { background: rgba(40, 15, 0, 0.92); }
+    .arrow.left  { left: 10px; }
+    .arrow.right { right: 10px; }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .counter {
+      font-size: 0.92rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .btn {
+      border: 1px solid #f0cdb0;
+      background: #fff;
+      color: var(--ink);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-weight: 700;
+      font-size: 0.84rem;
+      cursor: pointer;
+    }
+
+    .btn:hover, .btn:focus-visible {
+      border-color: var(--accent);
+      outline: none;
+      box-shadow: 0 0 0 3px var(--ring);
+    }
+
+    .btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .side {
+      background: rgba(255, 253, 249, 0.92);
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 18px 42px rgba(80, 30, 0, 0.12);
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(4px);
+    }
+
+    .side h2 {
+      margin: 6px 0 10px;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .thumbs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .thumb {
+      border: 2px solid transparent;
+      border-radius: 8px;
+      overflow: hidden;
+      padding: 0;
+      background: #f0cdb0;
+      cursor: pointer;
+      aspect-ratio: 1 / 1;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+
+    .thumb.active {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px var(--ring);
+    }
+
+    .help {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    /* ── YouTube Videos section ── */
+    .videos-panel {
+      background: rgba(255, 253, 249, 0.92);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 18px 42px rgba(80, 30, 0, 0.12);
+      backdrop-filter: blur(4px);
+    }
+
+    .videos-panel h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--accent-2);
+      margin-bottom: 18px;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .video-grid iframe {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: none;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 980px) {
+      .gallery-shell { grid-template-columns: 1fr; }
+      .thumbs { grid-template-columns: repeat(6, 1fr); }
+      .video-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      body { padding: 12px; }
+      .main, .side, .videos-panel { border-radius: 14px; }
+      .thumbs { grid-template-columns: repeat(4, 1fr); }
+      .video-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <div class="navbar">
-        <a href="index.html">Home</a>
-    </div>
+  <div class="shell">
+    <div class="gallery-shell">
+      <section class="main">
+        <nav class="top-nav" aria-label="Event navigation">
+          <a class="chip" href="index.html">All People</a>
+          <a class="chip" href="sridhruthi.html">Sridhruthi's Events</a>
+          <a class="chip" href="kulturekool-2026.html">← KultureKool 2026</a>
+          <a class="chip" href="bday11.html">11th Birthday →</a>
+        </nav>
 
-    <!-- Home Page Content -->
-    <div class="content">
-        <h1>Sridhruthi, Our Little Princess!</h1>
-        <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 40px; margin-top: 30px;">
-            <img src="photos/invite11.png" alt="Birthday Invite" class="banner" style="max-width: 300px;">
-            <div>
-                <a href="bday11.html" style="font-size: 20px; background-color: #ff6600; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; display: inline-block;">
-                    View 11th Birthday Gallery →
-                </a>
-            </div>
+        <h1>Birthday Memories</h1>
+        <p class="subtitle">Sridhruthi's birthday photos through the years — click any thumbnail to open it in the viewer.</p>
+
+        <div class="viewer-wrap">
+          <button class="arrow left"  id="prevBtn" type="button" aria-label="Previous photo">&#8249;</button>
+          <img id="mainImage" alt="Birthday photo">
+          <div class="caption" id="caption"></div>
+          <button class="arrow right" id="nextBtn" type="button" aria-label="Next photo">&#8250;</button>
         </div>
-    </div>
 
-    <div class="tabs">
-        <button class="tablink" onclick="openTab(event, 'Photos')" id="defaultTab">Photos</button>
-        <button class="tablink" onclick="openTab(event, 'Videos')">Videos</button>
-    </div>
-
-    <div id="Photos" class="tabcontent">
-        <div class="gallery">
-            <h2>Last 10 Birthdays</h2>
-            <div id="photo-grid" class="photo-grid"></div>
+        <div class="meta">
+          <div class="counter" id="counter"></div>
+          <div class="controls">
+            <button class="btn" id="playBtn"       type="button">Play Slideshow</button>
+            <button class="btn" id="shuffleBtn"    type="button">Shuffle</button>
+            <button class="btn" id="fullscreenBtn" type="button">Fullscreen</button>
+          </div>
         </div>
+      </section>
+
+      <aside class="side">
+        <h2>Quick Jump Thumbnails</h2>
+        <div class="thumbs" id="thumbs"></div>
+        <p class="help">Keyboard: Left/Right = navigate &nbsp;·&nbsp; Space = play/pause &nbsp;·&nbsp; F = fullscreen &nbsp;·&nbsp; Home/End = first/last</p>
+      </aside>
     </div>
 
-    <div id="Videos" class="tabcontent" style="display:none;">
-        <h2>Some Lovely videos through the years</h2>
-        <div class="video-grid">
-            <iframe 
-            src="https://www.youtube.com/embed/0jj7Qeiex-U?si=nTUbREUIg5oWSP7s" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/WrXMp6gClXU?si=RFCbfwVcUKWV1YgV" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/PCaqVbxloiE?si=8JWrdz386dOk5bmq" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/pyK3IKjsNtY?si=HeKIoI4Hg8-1adYW" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/LPzpQZoSACA?si=n-oiXD2Hats2WBBr" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/IRrtyO_lMOA?si=AfijrNSKjk4mka-I" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/zp1QtjZ-WbM?si=HGCFBS3vrVEFa7YW" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/eA947ArzUb4?si=_AuiLB0Ggq82uOb6" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/Xlbt2BaYfn4?si=9-7n_EX_55Xw63JX" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/ryibU1G9xpE?si=dEClf6znt0doptTE" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/oXMg5vOwLis?si=2vio6fzTMJtx5jx1" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/6ELaZogGsTg?si=mq3dEFy1JSOYC3ME" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-            src="https://www.youtube.com/embed/pyK3IKjsNtY?si=MqEnzh0M29fP3Ee3" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-        <iframe 
-        src="https://www.youtube.com/embed/6JHCrvxJy3M?si=DmphkJA-bWyWdx8c" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-        allowfullscreen>
-    </iframe>
-    <iframe 
-    src="https://www.youtube.com/embed/pyK3IKjsNtY?si=MqEnzh0M29fP3Ee3" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-    allowfullscreen>
-</iframe>
-<iframe 
-src="https://www.youtube.com/embed/SIeQQzcaXKo?si=ljZKyeup8wY7Gcnf" 
-frameborder="0" 
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-allowfullscreen>
-</iframe>
-<iframe 
-src="https://www.youtube.com/embed/frrAcmPAxxI?si=IOd1z0DU0-uXUkv_" 
-frameborder="0" 
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-allowfullscreen>
-</iframe>
-<iframe 
-src="https://www.youtube.com/embed/hWYhZck-IgA?si=07zZqyuGu_uMR_iE" 
-frameborder="0" 
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-allowfullscreen>
-</iframe>
-<iframe 
-src="https://www.youtube.com/embed/n5cBw0ck0a4?si=p6aT5MSQuA2zreJf" 
-frameborder="0" 
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-allowfullscreen>
-</iframe>
-<iframe 
-src="https://www.youtube.com/embed/u-ExUaICXLU?si=NstHM9Xf7gEUTxm_" 
-frameborder="0" 
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-allowfullscreen>
-</iframe>
-<iframe 
-src="https://www.youtube.com/embed/AypfMxb6vwU?si=wbIDEVSveeSDNXOx" 
-frameborder="0" 
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-allowfullscreen>
-</iframe>
-<iframe 
-src="https://www.youtube.com/embed/IbQx7Y8_M2s?si=ETZ92aAJpAsnBKDk" 
-frameborder="0" 
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-allowfullscreen>
-</iframe>
+    <!-- YouTube videos kept as a grid since they are embedded iframes -->
+    <section class="videos-panel">
+      <h2>Videos Through the Years</h2>
+      <div class="video-grid">
+        <iframe src="https://www.youtube.com/embed/0jj7Qeiex-U" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/WrXMp6gClXU" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/PCaqVbxloiE" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/pyK3IKjsNtY" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/LPzpQZoSACA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/IRrtyO_lMOA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/zp1QtjZ-WbM" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/eA947ArzUb4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/Xlbt2BaYfn4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/ryibU1G9xpE" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/oXMg5vOwLis" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/6ELaZogGsTg" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/6JHCrvxJy3M" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/SIeQQzcaXKo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/frrAcmPAxxI" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/hWYhZck-IgA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/n5cBw0ck0a4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/u-ExUaICXLU" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/AypfMxb6vwU" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/IbQx7Y8_M2s" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </section>
+  </div>
 
+  <script>
+    const photos = [
+      { src: 'photos/birthday-1.jpg',   label: '1st Birthday'  },
+      { src: 'photos/birthday-2.jpg',   label: '2nd Birthday'  },
+      { src: 'photos/birthday-3.jpg',   label: '3rd Birthday'  },
+      { src: 'photos/birthday-4.jpg',   label: '4th Birthday'  },
+      { src: 'photos/birthday-5.jpg',   label: '5th Birthday'  },
+      { src: 'photos/birthday-6.jpg',   label: '6th Birthday'  },
+      { src: 'photos/birthday-7.jpg',   label: '7th Birthday'  },
+      { src: 'photos/birthday-8.jpg',   label: '8th Birthday'  },
+      { src: 'photos/birthday-9.jpg',   label: '9th Birthday'  },
+      { src: 'photos/birthday-10.jpg',  label: '10th Birthday' },
+      { src: 'photos/birthday-10-1.jpg',label: ''              },
+      { src: 'photos/IMG_4451.jpg',     label: ''              },
+      { src: 'photos/_DHR2959-2.jpg',   label: ''              },
+      { src: 'photos/_DHR2987-2.jpg',   label: ''              }
+    ];
 
+    // Filter out photos that fail to load
+    let items = [...photos];
 
-        </div>
-    </div>
+    const viewer      = document.getElementById('mainImage');
+    const captionEl   = document.getElementById('caption');
+    const counter     = document.getElementById('counter');
+    const thumbsEl    = document.getElementById('thumbs');
+    const playBtn     = document.getElementById('playBtn');
+    const shuffleBtn  = document.getElementById('shuffleBtn');
+    const fsBtn       = document.getElementById('fullscreenBtn');
+    const prevBtn     = document.getElementById('prevBtn');
+    const nextBtn     = document.getElementById('nextBtn');
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const gallery = document.getElementById('photo-grid');
+    let index = 0, playing = false, timer = null;
 
-            // Predefined list of photo filenames with titles and descriptions
-            const photos = [
-                { name: 'birthday-1.jpg', title: '1st Birthday', text: 'A wonderful celebration with family and friends.' },
-                { name: 'birthday-2.jpg', title: '2nd Birthday', text: 'Fun-filled day with lots of laughter.' },
-                { name: 'birthday-3.jpg', title: '3rd Birthday', text: 'A memorable party with games and cake.' },
-                { name: 'birthday-4.jpg', title: '4th Birthday', text: 'A joyful day with colorful decorations.' },
-                { name: 'birthday-5.jpg', title: '5th Birthday', text: 'An amazing birthday with a magic show.' },
-                { name: 'birthday-6.jpg', title: '6th Birthday', text: 'A fantastic day with pony rides and fun.' },
-                { name: 'birthday-7.jpg', title: '7th Birthday', text: 'A superhero-themed party full of adventure.' },
-                { name: 'birthday-8.jpg', title: '8th Birthday', text: 'An unforgettable birthday with lots of gifts.' },
-                { name: 'birthday-9.jpg', title: '9th Birthday', text: 'A day of fun, games, and cake.' },
-                { name: 'birthday-10.jpg', title: '10th Birthday', text: 'A milestone birthday with a big celebration.' },
-                { name: 'birthday-10-1.jpg', title: '', text: '' }
-            ];
+    function setGalleryBackground(imageSrc) {
+      if (!imageSrc) return;
+      document.body.style.setProperty('--page-bg-image', `url('${imageSrc}')`);
+    }
 
-            photos.forEach((photo) => {
-                const container = document.createElement('div');
-                container.style.marginBottom = '30px';
-                container.style.textAlign = 'center';
+    function render() {
+      const item = items[index];
+      viewer.src = item.src;
+      viewer.alt = item.label || `Birthday photo ${index + 1}`;
+      captionEl.textContent = item.label;
+      captionEl.style.display = item.label ? 'block' : 'none';
+      counter.textContent = `Photo ${index + 1} of ${items.length}`;
+      document.querySelectorAll('.thumb').forEach((t, i) =>
+        t.classList.toggle('active', i === index));
+    }
 
-                const title = document.createElement('h3');
-                title.textContent = photo.title;
+    function next() { index = (index + 1) % items.length; render(); }
+    function prev() { index = (index - 1 + items.length) % items.length; render(); }
 
-                const text = document.createElement('p');
-                text.textContent = photo.text;
+    function togglePlay() {
+      playing = !playing;
+      playBtn.classList.toggle('active', playing);
+      playBtn.textContent = playing ? 'Pause Slideshow' : 'Play Slideshow';
+      playing ? (timer = setInterval(next, 2600)) : clearInterval(timer);
+    }
 
-                const imgElement = document.createElement('img');
-                imgElement.src = `photos/${photo.name}`;
-                imgElement.alt = photo.title;
-                imgElement.onerror = () => imgElement.style.display = 'none';  // Hide broken images
+    function shuffle() {
+      for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [items[i], items[j]] = [items[j], items[i]];
+      }
+      index = 0; buildThumbs(); render();
+    }
 
-                container.appendChild(title);
-                container.appendChild(text);
-                container.appendChild(imgElement);
+    function toggleFullscreen() {
+      document.fullscreenElement
+        ? document.exitFullscreen()
+        : document.documentElement.requestFullscreen();
+    }
 
-                gallery.appendChild(container);
-            });
-        });
+    function buildThumbs() {
+      thumbsEl.innerHTML = '';
+      items.forEach((item, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'thumb';
+        btn.type = 'button';
+        btn.setAttribute('aria-label', item.label || `Photo ${i + 1}`);
+        const img = document.createElement('img');
+        img.src = item.src;
+        img.alt = item.label || `Birthday thumbnail ${i + 1}`;
+        img.onerror = () => btn.style.display = 'none';
+        btn.appendChild(img);
+        btn.addEventListener('click', () => { index = i; render(); });
+        thumbsEl.appendChild(btn);
+      });
+    }
 
-        function openTab(evt, tabName) {
-            let i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablink");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
+    playBtn.addEventListener('click', togglePlay);
+    shuffleBtn.addEventListener('click', shuffle);
+    fsBtn.addEventListener('click', toggleFullscreen);
 
-        document.getElementById("defaultTab").click();
-    </script>
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') next();
+      if (e.key === 'ArrowLeft')  prev();
+      if (e.key === 'Home') { index = 0; render(); }
+      if (e.key === 'End')  { index = items.length - 1; render(); }
+      if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+      if (e.code === 'Space') { e.preventDefault(); togglePlay(); }
+    });
 
-    <audio autoplay loop>
-        <source src="music/Chinnari.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-
+    setGalleryBackground(items[0]?.src);
+    buildThumbs();
+    render();
+  </script>
 </body>
 </html>

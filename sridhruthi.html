@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sridhruthi - Events</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fff4f6;
+      --ink: #2a1830;
+      --panel: rgba(255, 250, 252, 0.8);
+      --rose: #ff6f91;
+      --peach: #ffb07c;
+      --berry: #8544c6;
+      --teal: #2f9b93;
+      --shadow: rgba(93, 37, 76, 0.18);
+      --ring: rgba(255, 111, 145, 0.32);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 12%, rgba(255, 111, 145, 0.28), transparent 28%),
+        radial-gradient(circle at 84% 18%, rgba(133, 68, 198, 0.22), transparent 26%),
+        radial-gradient(circle at 78% 82%, rgba(47, 155, 147, 0.18), transparent 26%),
+        linear-gradient(145deg, #fff8fb, var(--bg));
+      padding: 24px 18px 44px;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: '';
+      position: fixed;
+      border-radius: 999px;
+      filter: blur(10px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::before {
+      width: 280px;
+      height: 280px;
+      top: -90px;
+      right: -70px;
+      background: rgba(255, 176, 124, 0.34);
+    }
+
+    body::after {
+      width: 240px;
+      height: 240px;
+      bottom: -70px;
+      left: -60px;
+      background: rgba(133, 68, 198, 0.16);
+    }
+
+    .sparkle-field {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,111,145,0.4));
+      box-shadow: 0 0 18px rgba(255, 111, 145, 0.32);
+      opacity: 0;
+      animation: drift 12s linear infinite;
+    }
+
+    .sparkle.square {
+      border-radius: 4px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(133,68,198,0.45));
+    }
+
+    .shell {
+      position: relative;
+      z-index: 1;
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #7b4a78;
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      margin-bottom: 18px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 12px 30px rgba(93, 37, 76, 0.1);
+      backdrop-filter: blur(8px);
+    }
+
+    .back:hover,
+    .back:focus-visible {
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+      gap: 20px;
+      padding: 24px;
+      border-radius: 30px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.78), rgba(255,240,245,0.68));
+      border: 1px solid rgba(255,255,255,0.7);
+      box-shadow: 0 28px 60px var(--shadow);
+      backdrop-filter: blur(14px);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: auto -8% -25% auto;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,176,124,0.38), transparent 65%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.85);
+      color: #9b5276;
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.3rem, 5vw, 4.5rem);
+      line-height: 0.96;
+    }
+
+    .hero .lead {
+      max-width: 58ch;
+      margin: 14px 0 18px;
+      line-height: 1.7;
+      color: #5a3d58;
+      font-size: 1.02rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .meta-pill {
+      padding: 10px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.76);
+      box-shadow: 0 12px 24px rgba(93, 37, 76, 0.08);
+      min-width: 122px;
+    }
+
+    .meta-pill strong {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .meta-pill span {
+      font-size: 0.82rem;
+      color: #775970;
+    }
+
+    .hero-notes {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .note {
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: linear-gradient(140deg, rgba(255,255,255,0.9), rgba(255,232,239,0.92));
+      border: 1px solid rgba(255,255,255,0.7);
+      box-shadow: 0 14px 24px rgba(93, 37, 76, 0.08);
+      font-size: 0.9rem;
+      color: #66455f;
+    }
+
+    .hero-art {
+      position: relative;
+      min-height: 420px;
+      perspective: 1200px;
+      transition: transform 220ms ease;
+    }
+
+    .polaroid,
+    .polaroid-mini,
+    .quote-card {
+      position: absolute;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.94);
+      box-shadow: 0 22px 44px rgba(88, 35, 72, 0.18);
+      transition: transform 260ms ease;
+    }
+
+    .polaroid {
+      inset: 18px 28px 70px 34px;
+      padding: 16px 16px 56px;
+      transform: rotate(-4deg);
+    }
+
+    .polaroid::before {
+      content: 'Sridhruthi • 12';
+      position: absolute;
+      left: 18px;
+      bottom: 18px;
+      color: #905a80;
+      font-size: 0.92rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+
+    .polaroid img,
+    .polaroid-mini img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 18px;
+      display: block;
+    }
+
+    .polaroid-mini {
+      width: 150px;
+      height: 188px;
+      right: 8px;
+      bottom: 34px;
+      padding: 10px;
+      transform: rotate(7deg);
+    }
+
+    .quote-card {
+      left: 8px;
+      bottom: 4px;
+      max-width: 220px;
+      padding: 16px;
+      background: linear-gradient(145deg, rgba(255,240,246,0.95), rgba(245,240,255,0.95));
+    }
+
+    .quote-card strong {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #9c6383;
+      margin-bottom: 8px;
+    }
+
+    .quote-card p {
+      margin: 0;
+      line-height: 1.55;
+      color: #684d66;
+      font-size: 0.92rem;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 12px;
+      margin: 28px 0 16px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+    }
+
+    .section-head p {
+      margin: 0;
+      color: #6e5268;
+      max-width: 48ch;
+      line-height: 1.6;
+    }
+
+    .event-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+    }
+
+    .event-card {
+      position: relative;
+      grid-column: span 6;
+      min-height: 250px;
+      padding: 20px;
+      border-radius: 28px;
+      overflow: hidden;
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 0 24px 44px rgba(43, 26, 49, 0.18);
+      transform-style: preserve-3d;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+      opacity: 0;
+      transform: translateY(24px);
+    }
+
+    .event-card.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: transform 600ms ease, opacity 600ms ease;
+    }
+
+    .event-card:focus-visible {
+      outline: 3px solid var(--ring);
+      outline-offset: 3px;
+    }
+
+    .event-card:hover {
+      box-shadow: 0 28px 52px rgba(43, 26, 49, 0.24);
+    }
+
+    .event-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(20,18,26,0.78), rgba(20,18,26,0.14) 58%);
+    }
+
+    .event-card::after {
+      content: '';
+      position: absolute;
+      top: -30px;
+      right: -20px;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.16);
+      filter: blur(2px);
+    }
+
+    .event-copy {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      height: 100%;
+    }
+
+    .event-tag {
+      display: inline-flex;
+      align-self: flex-start;
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.16);
+      backdrop-filter: blur(8px);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .event-card h3 {
+      margin: 0 0 8px;
+      font-size: clamp(1.5rem, 2.2vw, 2rem);
+      line-height: 1.08;
+    }
+
+    .event-card p {
+      margin: 0 0 14px;
+      max-width: 38ch;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.92);
+    }
+
+    .event-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .birthday11 {
+      background:
+        linear-gradient(155deg, rgba(255,120,141,0.72), rgba(247,130,97,0.78)),
+        url('photos/invite11.png') center/cover no-repeat;
+    }
+
+    .birthdayMemories {
+      background:
+        linear-gradient(155deg, rgba(121,66,181,0.7), rgba(255,111,145,0.72)),
+        url('photos/birthday-10.jpg') center/cover no-repeat;
+    }
+
+    .chs {
+      background:
+        linear-gradient(155deg, rgba(34,67,145,0.72), rgba(55,153,153,0.72)),
+        url('photos/IMG_4451.jpg') center/cover no-repeat;
+    }
+
+    .kk {
+      background:
+        linear-gradient(155deg, rgba(175,110,42,0.78), rgba(82,63,154,0.64)),
+        url('photos/birthday-8.jpg') center/cover no-repeat;
+    }
+
+    .memory-strip {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .memory-panel {
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.76);
+      box-shadow: 0 18px 36px rgba(93, 37, 76, 0.1);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      transform: translateY(18px);
+    }
+
+    .memory-panel.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: transform 600ms ease, opacity 600ms ease;
+    }
+
+    .memory-panel strong {
+      display: block;
+      margin-bottom: 8px;
+      color: #8a4b7c;
+      font-size: 0.76rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .memory-panel h3 {
+      margin: 0 0 8px;
+      font-size: 1.15rem;
+    }
+
+    .memory-panel p {
+      margin: 0;
+      line-height: 1.6;
+      color: #674d61;
+    }
+
+    @keyframes drift {
+      0% { transform: translate3d(0, 18px, 0) scale(0.7); opacity: 0; }
+      12% { opacity: 0.9; }
+      88% { opacity: 0.65; }
+      100% { transform: translate3d(-24px, -120px, 0) scale(1.08); opacity: 0; }
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-art {
+        min-height: 360px;
+      }
+
+      .event-card,
+      .memory-panel {
+        grid-column: span 12;
+      }
+
+      .memory-strip {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 14px 12px 28px;
+      }
+
+      .hero,
+      .event-card,
+      .memory-panel {
+        border-radius: 24px;
+      }
+
+      .hero {
+        padding: 18px;
+      }
+
+      .polaroid {
+        inset: 10px 18px 64px 18px;
+      }
+
+      .polaroid-mini {
+        width: 122px;
+        height: 156px;
+      }
+
+      .quote-card {
+        max-width: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sparkle-field" id="sparkleField" aria-hidden="true"></div>
+
+  <main class="shell">
+    <a class="back" href="index.html" aria-label="Back to home page">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to Home
+    </a>
+
+    <section class="hero" id="heroCard">
+      <div>
+        <span class="eyebrow">Sridhruthi's World</span>
+        <h1>Dreamy, bright,<br>and full of sparkle.</h1>
+        <p class="lead">At 12, Sridhruthi's page should feel a little more stylish and grown-up, but still playful. This hub now feels like a digital scrapbook with motion, color, and gallery cards that invite you in.</p>
+
+        <div class="hero-meta">
+          <div class="meta-pill">
+            <strong>Age 12</strong>
+            <span>Tween sparkle energy</span>
+          </div>
+          <div class="meta-pill">
+            <strong>4 Events</strong>
+            <span>Birthday, school, stage</span>
+          </div>
+          <div class="meta-pill">
+            <strong>Photo Stories</strong>
+            <span>Full galleries with motion</span>
+          </div>
+        </div>
+
+        <div class="hero-notes">
+          <div class="note">Soft gradients, layered cards, and floating sparkles make the page feel more special.</div>
+          <div class="note">Every event tile opens the full gallery with slideshow, navigation, and thumbnails.</div>
+        </div>
+      </div>
+
+      <div class="hero-art" id="heroArt">
+        <div class="polaroid">
+          <img src="photos/birthday-10.jpg" alt="Sridhruthi birthday memory">
+        </div>
+        <div class="polaroid-mini">
+          <img src="photos/invite11.png" alt="11th birthday invite">
+        </div>
+        <div class="quote-card">
+          <strong>Memory Mood</strong>
+          <p>Pretty colors, celebration energy, and moments that feel a little magical.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-head">
+      <h2>Open an Event</h2>
+      <p>Each card has a different mood, but the whole page stays cohesive and animated. Hover on desktop for a little tilt effect.</p>
+    </div>
+
+    <section class="event-grid" aria-label="Sridhruthi event galleries">
+      <a class="event-card birthday11 reveal" href="bday11.html" aria-label="Open 11th Birthday gallery">
+        <div class="event-copy">
+          <span class="event-tag">Birthday</span>
+          <h3>11th Birthday Gallery</h3>
+          <p>The celebration page with warm colors, party energy, and the full gallery viewer.</p>
+          <span class="event-link">Open gallery <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+
+      <a class="event-card birthdayMemories reveal" href="birthday.html" aria-label="Open Birthday Memories gallery">
+        <div class="event-copy">
+          <span class="event-tag">Memories</span>
+          <h3>Birthday Memories</h3>
+          <p>A through-the-years collection with photo highlights and birthday videos all in one place.</p>
+          <span class="event-link">Open gallery <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+
+      <a class="event-card chs reveal" href="chs-graduation.html" aria-label="Open CHS Graduation gallery">
+        <div class="event-copy">
+          <span class="event-tag">School Milestone</span>
+          <h3>CHS Graduation</h3>
+          <p>The graduation story with photo browsing, added videos, and the soft background image treatment.</p>
+          <span class="event-link">Open gallery <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+
+      <a class="event-card kk reveal" href="kulturekool-2026.html" aria-label="Open KultureKool 2026 gallery">
+        <div class="event-copy">
+          <span class="event-tag">Performance</span>
+          <h3>KultureKool 2026</h3>
+          <p>A stage-ready event card with a richer look so future photos can feel like a featured performance set.</p>
+          <span class="event-link">Open gallery <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+    </section>
+
+    <section class="memory-strip" aria-label="Sridhruthi page highlights">
+      <article class="memory-panel reveal">
+        <strong>Style Note</strong>
+        <h3>Older than a kid page</h3>
+        <p>The color story is sweeter and more polished, so it fits a 12-year-old better than a basic card grid.</p>
+      </article>
+
+      <article class="memory-panel reveal">
+        <strong>Motion</strong>
+        <h3>Soft animated details</h3>
+        <p>Floating sparkles, reveal animations, and pointer tilt make the page feel active without becoming noisy.</p>
+      </article>
+
+      <article class="memory-panel reveal">
+        <strong>Navigation</strong>
+        <h3>Easy to browse</h3>
+        <p>The hub now works like a landing page for her story, instead of a plain list of links.</p>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const sparkleField = document.getElementById('sparkleField');
+    const heroCard = document.getElementById('heroCard');
+    const heroArt = document.getElementById('heroArt');
+    const revealItems = document.querySelectorAll('.reveal');
+
+    for (let index = 0; index < 18; index += 1) {
+      const sparkle = document.createElement('span');
+      sparkle.className = `sparkle${index % 3 === 0 ? ' square' : ''}`;
+      sparkle.style.left = `${Math.random() * 100}%`;
+      sparkle.style.top = `${55 + Math.random() * 50}%`;
+      sparkle.style.animationDelay = `${Math.random() * 12}s`;
+      sparkle.style.animationDuration = `${10 + Math.random() * 7}s`;
+      sparkleField.appendChild(sparkle);
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18 });
+
+    revealItems.forEach((item) => observer.observe(item));
+
+    heroCard.addEventListener('mousemove', (event) => {
+      const bounds = heroCard.getBoundingClientRect();
+      const offsetX = (event.clientX - bounds.left) / bounds.width - 0.5;
+      const offsetY = (event.clientY - bounds.top) / bounds.height - 0.5;
+      heroArt.style.transform = `translate3d(${offsetX * 10}px, ${offsetY * 10}px, 0)`;
+    });
+
+    heroCard.addEventListener('mouseleave', () => {
+      heroArt.style.transform = 'translate3d(0, 0, 0)';
+    });
+
+    document.querySelectorAll('.event-card').forEach((card) => {
+      card.addEventListener('mousemove', (event) => {
+        const bounds = card.getBoundingClientRect();
+        const rotateY = ((event.clientX - bounds.left) / bounds.width - 0.5) * 9;
+        const rotateX = (((event.clientY - bounds.top) / bounds.height) - 0.5) * -9;
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = card.classList.contains('is-visible') ? 'translateY(0)' : 'translateY(24px)';
+      });
+    });
+  </script>
+</body>
+</html>

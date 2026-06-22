@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>11th Birthday Gallery</title>
+  <title>KultureKool 2026 Gallery</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #fdf7f2;
-      --ink: #2a1800;
-      --panel: #fffdf9;
-      --accent: #e55a00;
-      --accent-2: #b34400;
-      --muted: #6b4c30;
-      --ring: rgba(229, 90, 0, 0.35);
+      --bg: #f6f5ef;
+      --ink: #221f18;
+      --panel: #ffffff;
+      --accent: #99631d;
+      --accent-2: #6b4910;
+      --muted: #5f5547;
+      --ring: rgba(153, 99, 29, 0.35);
     }
 
     * { box-sizing: border-box; }
@@ -25,7 +25,10 @@
       min-height: 100vh;
       font-family: 'Manrope', sans-serif;
       color: var(--ink);
-      background: var(--bg);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(153, 99, 29, 0.2), transparent 35%),
+        radial-gradient(circle at 92% 85%, rgba(51, 107, 94, 0.2), transparent 37%),
+        linear-gradient(140deg, #fbf9f3, var(--bg));
       padding: 20px;
       position: relative;
     }
@@ -51,10 +54,10 @@
     }
 
     .main {
-      background: rgba(255, 253, 249, 0.92);
+      background: rgba(255, 255, 255, 0.92);
       border-radius: 18px;
       padding: 16px;
-      box-shadow: 0 18px 42px rgba(80, 30, 0, 0.13);
+      box-shadow: 0 18px 42px rgba(33, 26, 13, 0.12);
       backdrop-filter: blur(4px);
     }
 
@@ -66,7 +69,7 @@
     }
 
     .chip {
-      border: 1px solid #f0cdb0;
+      border: 1px solid #e6d8c0;
       color: var(--ink);
       background: #fff;
       border-radius: 999px;
@@ -99,7 +102,7 @@
       position: relative;
       border-radius: 14px;
       overflow: hidden;
-      background: #1a0a00;
+      background: #191611;
       min-height: 420px;
       display: flex;
       align-items: center;
@@ -125,7 +128,7 @@
       top: 50%;
       transform: translateY(-50%);
       border: 0;
-      background: rgba(40, 15, 0, 0.72);
+      background: rgba(29, 22, 12, 0.72);
       color: #fff;
       width: 42px;
       height: 42px;
@@ -135,7 +138,7 @@
       font-weight: 700;
     }
 
-    .arrow:hover { background: rgba(40, 15, 0, 0.92); }
+    .arrow:hover { background: rgba(29, 22, 12, 0.92); }
     .arrow.left  { left: 10px; }
     .arrow.right { right: 10px; }
 
@@ -161,7 +164,7 @@
     }
 
     .btn {
-      border: 1px solid #f0cdb0;
+      border: 1px solid #e6d8c0;
       background: #fff;
       color: var(--ink);
       border-radius: 10px;
@@ -184,13 +187,13 @@
     }
 
     .side {
-      background: rgba(255, 253, 249, 0.92);
+      background: rgba(255, 255, 255, 0.92);
       border-radius: 18px;
       padding: 14px;
-      box-shadow: 0 18px 42px rgba(80, 30, 0, 0.13);
-      backdrop-filter: blur(4px);
+      box-shadow: 0 18px 42px rgba(33, 26, 13, 0.12);
       display: flex;
       flex-direction: column;
+      backdrop-filter: blur(4px);
     }
 
     .side h2 {
@@ -212,7 +215,7 @@
       border-radius: 8px;
       overflow: hidden;
       padding: 0;
-      background: #f0cdb0;
+      background: #f0e8d5;
       cursor: pointer;
       aspect-ratio: 1 / 1;
       position: relative;
@@ -269,16 +272,16 @@
       <nav class="top-nav" aria-label="Event navigation">
         <a class="chip" href="index.html">All People</a>
         <a class="chip" href="sridhruthi.html">Sridhruthi's Events</a>
-        <a class="chip" href="birthday.html">← Birthday Memories</a>
-        <a class="chip" href="chs-graduation.html">CHS Graduation →</a>
+        <a class="chip" href="chs-graduation.html">← CHS Graduation</a>
+        <a class="chip" href="birthday.html">Birthday Memories →</a>
       </nav>
 
-      <h1>11th Birthday Gallery</h1>
+      <h1>KultureKool 2026</h1>
       <p class="subtitle">Full-screen viewer, thumbnail rail, slideshow mode, and keyboard navigation.</p>
 
       <div class="viewer-wrap">
         <button class="arrow left"  id="prevBtn" type="button" aria-label="Previous item">&#8249;</button>
-        <img   id="mainImage" alt="11th Birthday photo">
+        <img   id="mainImage" alt="KultureKool 2026 photo">
         <video id="mainVideo" preload="metadata" controls></video>
         <button class="arrow right" id="nextBtn" type="button" aria-label="Next item">&#8250;</button>
       </div>
@@ -320,16 +323,19 @@
       document.body.style.setProperty('--page-bg-image', `url('${imageSrc}')`);
     }
 
-    // Load photos; videos optional (no videos.json for bday11 yet)
     Promise.all([
-      fetch('bday11/images.json').then(r => r.ok ? r.json() : []).catch(() => []),
-      fetch('bday11/videos.json').then(r => r.ok ? r.json() : []).catch(() => [])
+      fetch('kulturekool-2026/images.json').then(r => r.ok ? r.json() : []).catch(() => []),
+      fetch('kulturekool-2026/videos.json').then(r => r.ok ? r.json() : []).catch(() => [])
     ]).then(([imgs, vids]) => {
       items = [
-        ...imgs.map(f => ({ src: 'bday11/' + f, type: 'image' })),
-        ...vids.map(f => ({ src: 'bday11/' + f, type: 'video' }))
+        ...imgs.map(f => ({ src: 'kulturekool-2026/' + f, type: 'image' })),
+        ...vids.map(f => ({ src: 'kulturekool-2026/' + f, type: 'video' }))
       ];
       setGalleryBackground(items.find(item => item.type === 'image')?.src);
+      if (items.length === 0) {
+        counter.textContent = 'No photos yet — add images to kulturekool-2026/images.json';
+        return;
+      }
       buildThumbs();
       render();
     });
@@ -350,7 +356,7 @@
         mainVideo.style.display = 'none';
         viewer.style.display = 'block';
         viewer.src = item.src;
-        viewer.alt = `11th Birthday photo ${index + 1}`;
+        viewer.alt = `KultureKool 2026 photo ${index + 1}`;
         counter.textContent = `Photo ${index + 1} of ${items.length}`;
       }
 
@@ -399,7 +405,7 @@
           btn.append(vid, ov);
         } else {
           const img = document.createElement('img');
-          img.src = item.src; img.alt = `Birthday thumbnail ${i + 1}`;
+          img.src = item.src; img.alt = `KultureKool thumbnail ${i + 1}`;
           btn.appendChild(img);
         }
 
